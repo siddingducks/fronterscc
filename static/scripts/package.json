@@ -1,0 +1,23 @@
+{
+  "name": "pkfronters",
+  "type": "module",
+  "dependencies": {
+    "esm": "3.0.74"
+  },
+  "esm": {
+    "cjs": true,
+    "mode": "auto",
+    "mainFields": [
+     "modules",
+     "main"
+    ]
+  },
+  "version": "1.0.0",
+  "description": "displaying fronters from pluralkit data",
+  "main": "pkFronters.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "siddingducks",
+  "license": "ISC"
+}
