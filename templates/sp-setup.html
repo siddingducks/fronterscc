@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="{{ url_for('static',filename='styles/style.css') }}" type="text/css" rel="stylesheet" />
+        <meta name="favicon attribution" content="Three Users by Icons By Alfredo from Noun Project (liscensed CC BY 3.0) - https://thenounproject.com/browse/icons/term/three-users/" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+        <link rel="manifest" href="/static/images/site.webmanifest">
+        <link rel="mask-icon" href="/static/images/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="/static/images/favicon.ico">
+        <meta name="msapplication-TileColor" content="#2d89ef">
+        <meta name="msapplication-config" content="/static/images/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+        <title>sp.fronters.cc</title>
+        <script src="{{ url_for('static',filename='scripts/themeColor.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/loadingRing.js') }}"></script>
+    </head>
+    <body>
+        <main>
+            <div id="loader"></div>
+            <div class="button-container">
+                <button type="button" class="button" id="back" onclick="history.back()">&larr; Home</button>
+                <button type="button" class="button" id="themeToggle"></button>
+            </div>
+            <div class="page">
+                <div class="page-content">
+                    <header>sp.fronters.cc</header>
+                    <p>Want to make your own fronters.cc page that inferaces with your Simply Plural account? To start, you'll need to generate a system token. Go to your Simply Plural dashboard on the web app. You will not be able to generate a token using the mobile app. Next, click on the Tokens button and click Add Token. Create a <strong>READ-ONLY</strong> token. Once finished, <strong>CLICK AND HOLD</strong> token to copy to clipboard.</p>
+                    <p>Next, you'll need to find your user ID. Go to your Simply Plural dashboard and click on Account Settings. Scroll down to the section labelled Info. There, you will find your user ID.</p>
+                    <p>Now paste your token and your user ID into the boxes below with <strong>NO SPACES</strong>. Choose your custom url, hit submit, and you're all set! You should be able to find your fronting page at <em>sp.fronters.cc/customurl</em>. Please note that this page will only display <strong>PUBLIC</strong> fronters.</p>
+                    <form action="{{ url_for('add_new_user') }}" method="post" enctype="multipart/form-data">
+                        <label for="user_id">Your Simply Plural user ID</label><br>
+                        <input type="text" name="user_id" id="userID" required minlength="28" maxlength="28"><br>
+                        <label for="token">Your Simply Plural system token</label><br>
+                        <input type="text" name="token" id="token" required minlength="64" maxlength="64"><br>
+                        <label for="custom_url">Your custom URL link <br>
+                            <span id="example">(EXAMPLE: sp.fronters.cc/mysystemname)</span></label><br>
+                        <input type="text" name="custom_url" placeholder="mysystemname" required minlength="3" maxlength="20"><br>
+                        <input type="submit" value="Submit" class="button">
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="pluralkit.me">PluralKit</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://app.apparyllis.com/">Simply Plural</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
+        </footer>
+    </body>
+</html>

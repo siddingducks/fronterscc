@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="{{ url_for('static',filename='styles/style.css') }}" type="text/css" rel="stylesheet" />
+        <meta name="favicon attribution" content="Three Users by Icons By Alfredo from Noun Project (liscensed CC BY 3.0) - https://thenounproject.com/browse/icons/term/three-users/" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+        <link rel="manifest" href="/static/images/site.webmanifest">
+        <link rel="mask-icon" href="/static/images/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="/static/images/favicon.ico">
+        <meta name="msapplication-TileColor" content="#2d89ef">
+        <meta name="msapplication-config" content="/static/images/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+        <title>pk.fronters.cc</title>
+        <script src="{{ url_for('static',filename='scripts/themeColor.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/loadingRing.js') }}"></script>
+    </head>
+    <body>
+        <main>
+            <div id="loader"></div>
+            <div class="button-container">
+                <button type="button" class="button" id="themeToggle"></button>
+            </div>
+            <div class="page">
+                <div class="page-content">
+                    <header>pk.fronters.cc</header>
+                    <p>Want to make your own fronters.cc page that inferaces with your PluralKit system? It's easy! To start, you'll need to ensure that your system's fronters are <strong>PUBLIC</strong>. Go to the bot channel of any Discord server and enter the following command: <pre>pk;system privacy front public</pre></p>
+                    <p>Next, you'll want to find your PluralKit system ID. Enter the following command: <pre>pk;system id</pre></p>
+                    <p>Now you're all set! You should be able to find your fronting page at <em>pk.fronters.cc/systemid</em>. For an example, go to <a href="pk.fronters.cc/exmpl">pk.fronters.cc/exmpl</a>!</p>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="pluralkit.me">PluralKit</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://app.apparyllis.com/">Simply Plural</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
+        </footer>
+    </body>
+</html>
