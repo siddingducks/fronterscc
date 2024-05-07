@@ -13,13 +13,13 @@ class Pages():
     def home():
         return render_template('index.html')
     
-    @app.route('/sp_setup')
+    @app.route('/sp')
     def sp_setup():
-        return render_template('sp-user.html')
+        return render_template('sp-setup.html')
     
-    @app.route('/pk_setup')
+    @app.route('/pk')
     def pk_setup():
-        return render_template('pk-user.html')
+        return render_template('pk-setup.html')
 
 #FRONTERS.CC/PK
 class PluralKit(Resource):
@@ -62,7 +62,7 @@ class UserList(Resource):
         self.custom_url = custom_url
 
     #get list of all users
-    @app.route('/api/sp/users', methods=['GET'])
+    @app.route('/api/sp/userlist', methods=['GET'])
     def get_users():
         crsr = connect.cursor()
         #
@@ -71,32 +71,78 @@ class UserList(Resource):
         #
         crsr.close()
         connect.close()
-        
-        return jsonify(data) #FOR DEVELOPMENT
+        return jsonify(data) #FOR ADMIN USE
     
     #add a new user to the database
-    @app.route('/api/sp/users', methods=['POST'])
+    @app.route('/api/sp/users', methods=['GET', 'POST'])
     def add_new_user():
+        data = request.get_json()
+        user_id = data['user_id']
+        token = data['token']
+        custom_url = data['custom_url']
+
         db = connect()
         crsr = db.cursor()
         #
-        user = User(request.form['user_id'],
-                    request.form['token'],
-                    request.form['custom_url'])
-        print(user) #FOR DEVELOPMENT
-        crsr.execute(f'INSERT INTO users (user_id, token, custom_url) VALUES ({user.user_id}, {user.token}, {user.custom_url});')
+        user = User(user_id, token, custom_url)
+        crsr.execute(f"INSERT INTO users (user_id, token, custom_url) VALUES ('{user.user_id}', '{user.token}', '{user.custom_url}');")
         db.commit()
-        data = crsr.lastrowid #FOR DEVELOPMENT
         #
         crsr.close()
         db.close()
-        return jsonify(data) #FOR DEVELOPMENT
+        return json.dumps("Data added.")
 
 class UserActions(Resource):
     def __init__(self, user_id, token, custom_url):
         self.user_id = user_id
         self.token = token
         self.custom_url = custom_url
+
+    @app.route('/validateuser', methods=['POST'])
+    def validate_user():
+        data = request.get_json()
+        user_id = data["user_id"]
+        preexisting_user = False
+
+        conn = connect()
+        crsr = conn.cursor()
+        #
+        crsr.execute(f"SELECT user_id from users WHERE user_id = '{user_id}';")
+        check = crsr.fetchone()
+        #
+        crsr.close()
+        conn.close()
+        if check != None:
+            if check[0] == data['user_id']:
+                preexisting_user = True
+        preexisting_user = jsonify(preexisting_user)
+        return preexisting_user
+    
+    @app.route('/custom_url', methods=['POST'])
+    def validate_custom_url():
+        data = request.get_json()
+        custom_url = data['custom_url']
+        conn = connect()
+        crsr = conn.cursor()
+        #
+        crsr.execute(f"SELECT user_id from users WHERE custom_url = '{custom_url}';")
+        check = crsr.fetchone()
+        #
+        crsr.close()
+        conn.close()
+
+        if check == data['user_id']:
+            #custom_url is taken by the user being validated
+            available_url = True
+        elif check == None:
+            #custom_url is not in the databse
+            available_url = True
+        else:
+            #custom_url is in the databse but assigned to another user
+            available_url = False
+        available_url = jsonify(available_url)
+        return available_url
+
 
     #GET one user by custom_url
     @app.route('/api/sp/<custom_url>', methods=['GET'])
@@ -123,15 +169,15 @@ class UserActions(Resource):
     
     #PUT user info by user_id and token
     @app.route('/api/sp/update/<user_id>', methods=['PUT'])
-    def update_url():
+    def update_url(user_id):
+        data = request.get_json()
         db = connect()
         crsr = db.cursor()
         #
-        user = User(request.form['user_id'],
-                    request.form['token'],
-                    request.form['custom_url'])
-        print(user) #FOR DEVELOPMENT
-        crsr.execute(f"UPDATE users SET custom_url = '{user.custom_url}' WHERE user_id = '{user.user_id}' , token = '{user.token}';")
+        user = User(user_id,
+                    data['token'],
+                    data['custom_url'])
+        crsr.execute(f"UPDATE users SET custom_url = '{user.custom_url}' WHERE user_id = '{user.user_id}' AND token = '{user.token}';")
         db.commit()
         #
         crsr.close()
@@ -139,16 +185,21 @@ class UserActions(Resource):
         return json.dumps("Record was successfully updated.")
     
     #DELETE information for one user by user_id and token
-    @app.route('/api/sp/delete/<user_id>/<token>', methods=['DELETE'])
-    def delete(user_id, token):
+    @app.route('/api/sp/delete/<user_id>', methods=['DELETE'])
+    def delete(user_id):
+        data = request.get_json()
+        token = data['token']
+
         db = connect()
         crsr = db.cursor()
         #
-        crsr.execute(f"DELETE FROM users WHERE user_id = '{user_id}', token = '{token};'")
+        crsr.execute(f"DELETE FROM users WHERE user_id = '{user_id}' AND token = '{token}';")
+        db.commit()
         #
         crsr.close()
         db.close()
+        return json.dumps("Data deleted.")
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5500)
+    app.run(host="0.0.0.0", port=5000)
