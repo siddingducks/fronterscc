@@ -2,7 +2,7 @@ function toDiscordMarkdown(str) {
     //custom emojis
     let emojiRegEx = /<a:.+?:\d+> | <.+?:\d+>/g;
     var emojis = str.match(emojiRegEx);
-    if (emojis != null) {
+    if (emojis) {
         for (var emoji of emojis) {
             let discordEmoji = ' <img class="d-emoji" ';
             var emojiID = emoji.match(/:(\d+)>/);
@@ -69,4 +69,4 @@ function toDiscordMarkdown(str) {
     //DONE IN CSS
   
     return str;
-  }
+}
