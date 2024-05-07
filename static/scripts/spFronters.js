@@ -5,11 +5,9 @@ customError.classList.add('error-mssg');
 var config;
 var userData;
 
-//window.location.protocol + '/api/' + window.location.pathname <-- MUST CHANGE IN PRODUCTION
-
 //establish variables for authorization and page loading
 (async function () { 
-  let result = await fetch(window.location.protocol + '/api/' + window.location.pathname, {
+  let result = await fetch("/api" + window.location.pathname, {
       method: "GET", 
       headers: {
           'Accept': 'application/json'
@@ -70,7 +68,6 @@ async function fetchMember(memberID, isCustom) {
   //establish member ID for rendering member cards
   async function renderPage() {
     var frontersData = await fetchFronters();
-    console.log(frontersData); //FOR TESTING
     var members = [];
     var isCustom;
 
@@ -79,6 +76,9 @@ async function fetchMember(memberID, isCustom) {
       isCustom = fronter.content.custom;
       let member = await fetchMember(memberID, isCustom);
       member = member.content;
+      if (fronter.content.customStatus) {
+          member.customStatus = fronter.content.customStatus;
+      }
       members.push(member);
     }
 
@@ -129,15 +129,23 @@ async function renderCards(member, div) {
       memberPronouns.classList.add('md-span');
       if (member.pronouns!=null) {
           member.pronouns = toDiscordMarkdown(member.pronouns);
-          memberPronouns.innerHTML = member.pronouns;
+          memberPronouns.innerHTML = DOMPurify.sanitize(member.pronouns);
           memberElement.appendChild(memberPronouns);
+      }
+
+      let memberStatus = document.createElement('strong');
+      memberStatus.classList.add('member-status');
+      if (member.customStatus!=null) {
+          memberStatus.innerText = 'Status: ' + member.customStatus;
+          memberElement.appendChild(memberStatus);
+          console.log(memberStatus.innerText);
       }
 
       let memberDesc = document.createElement('md-block');
       memberDesc.classList.add('member-desc');
       if (member.desc!=null) {
           member.desc = toDiscordMarkdown(member.desc);
-          memberDesc.innerHTML = member.desc;
+          memberDesc.innerHTML = DOMPurify.sanitize(member.desc);
           memberElement.appendChild(memberDesc);
       }
 
