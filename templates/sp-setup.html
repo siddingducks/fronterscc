@@ -14,38 +14,58 @@
         <meta name="msapplication-TileColor" content="#2d89ef">
         <meta name="msapplication-config" content="/static/images/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
-        <title>sp.fronters.cc</title>
+        <title>fronters.cc</title>
         <script src="{{ url_for('static',filename='scripts/themeColor.js') }}"></script>
         <script src="{{ url_for('static',filename='scripts/loadingRing.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/validateUser.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/deleteUser.js') }}"></script>
     </head>
     <body>
         <main>
             <div id="loader"></div>
-            <div class="button-container">
-                <button type="button" class="button" id="back" onclick="history.back()">&larr; Home</button>
+            <a href="{{ url_for('home') }}"><button type="button" class="button" id="back-button">&#8592;<span class="desktop-label"> Back</span></button></a>
+            <div id="toggleDiv">
                 <button type="button" class="button" id="themeToggle"></button>
             </div>
             <div class="page">
                 <div class="page-content">
-                    <header>sp.fronters.cc</header>
-                    <p>Want to make your own fronters.cc page that inferaces with your Simply Plural account? To start, you'll need to generate a system token. Go to your Simply Plural dashboard on the web app. You will not be able to generate a token using the mobile app. Next, click on the Tokens button and click Add Token. Create a <strong>READ-ONLY</strong> token. Once finished, <strong>CLICK AND HOLD</strong> token to copy to clipboard.</p>
-                    <p>Next, you'll need to find your user ID. Go to your Simply Plural dashboard and click on Account Settings. Scroll down to the section labelled Info. There, you will find your user ID.</p>
-                    <p>Now paste your token and your user ID into the boxes below with <strong>NO SPACES</strong>. Choose your custom url, hit submit, and you're all set! You should be able to find your fronting page at <em>sp.fronters.cc/customurl</em>. Please note that this page will only display <strong>PUBLIC</strong> fronters.</p>
-                    <form action="{{ url_for('add_new_user') }}" method="post" enctype="multipart/form-data">
-                        <label for="user_id">Your Simply Plural user ID</label><br>
-                        <input type="text" name="user_id" id="userID" required minlength="28" maxlength="28"><br>
+                    <h1>Setting Up with Simply Plural</h1>
+                    <p>Want to make your own fronters.cc page that inferaces with your Simply Plural account? To start, you'll need to generate a system token. Go to your Simply Plural dashboard in your web browser. You will <strong>NOT</strong> be able to generate a token using the mobile app. Next, click on the Tokens button.</p>
+                    <img src="static/images/sp-setup_1.png" alt="example1" class="tutorial-img" />
+                    <p>Click Add Token.</p>
+                    <img src="static/images/sp-setup_2.png" alt="example2" class="tutorial-img" />
+                    <p>Create a <strong>READ-ONLY</strong> token.</p>
+                    <img src="static/images/sp-setup_3.png" alt="example3" class="tutorial-img" />
+                    <p>Once finished, <strong>CLICK AND HOLD</strong> token to copy to clipboard.</p>
+                    <img src="static/images/sp-setup_4.png" alt="example4" class="tutorial-img" />
+                    <p>Next, you'll need to find your user ID. Go to your Simply Plural dashboard and click on Account Settings.</p>
+                    <img src="static/images/sp-setup_5.png" alt="example5" class="tutorial-img" />
+                    <p>Scroll down to the section labelled Info. There, you will find your user ID.</p>
+                    <img src="static/images/sp-setup_6.png" alt="example6" class="tutorial-img" />
+                    <p>Now paste your token and your user ID into the boxes below with <strong>NO SPACES</strong>. Choose your custom URL, hit submit, and you're all set! You should be able to find your fronting page at <em>fronters.cc/sp/customurl</em>. Please note that this page will only display <strong>PUBLIC</strong> fronters.</p>
+                    <p>Want to <em>change</em> your token or your custom URL? Simply repeat the process detailed above with the new information and click submit. Your information will be updated upon submission. (Please note that you cannot change your user ID.)</p>
+                    <p>Want to <em>delete</em> your fronting page? Enter the exact information you created the page with (user ID, token, and custom URL), and click the Delete My Data button. Your information will be erased upon confirmation.</p>
+                    <h2>Enter Your Information Here:</h2>
+                    <form id="form" enctype="multipart/form-data">
+                        <label for="userID">Your Simply Plural user ID</label><br>
+                        <input type="text" name="user_id" id="userID" required minlength="20" maxlength="64"><br>
                         <label for="token">Your Simply Plural system token</label><br>
                         <input type="text" name="token" id="token" required minlength="64" maxlength="64"><br>
-                        <label for="custom_url">Your custom URL link <br>
-                            <span id="example">(EXAMPLE: sp.fronters.cc/mysystemname)</span></label><br>
-                        <input type="text" name="custom_url" placeholder="mysystemname" required minlength="3" maxlength="20"><br>
-                        <input type="submit" value="Submit" class="button">
+                        <label for="customURL">Your custom URL link <br>
+                            <span id="example">(EXAMPLE: fronters.cc/sp/mysystemname)</span></label><br>
+                        <input type="text" name="custom_url" id="customUrl" placeholder="mysystemname" required minlength="3" maxlength="20"><br>
+                        <div id="button-container">
+                            <input type="button" value="Delete My Data" class="button" onclick="confirmDeletion(this.form)">
+                            <input type="button" value="Submit" class="button" onclick="formHandling(this.form)">
+                        </div>
                     </form>
                 </div>
             </div>
         </main>
         <footer>
-            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="pluralkit.me">PluralKit</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://app.apparyllis.com/">Simply Plural</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
+            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="https://app.apparyllis.com/">Simply Plural</a>. 
+                Inspired by Plural Front Codes by Arcana (<a href="https://web.archive.org/web/20221025114736/https://github.com/systemic-chaos/currently-fronting">archived</a>) 
+                and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
         </footer>
     </body>
 </html>
