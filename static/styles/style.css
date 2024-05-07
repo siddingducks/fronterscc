@@ -7,6 +7,7 @@
     --button-hover-color: #20273e;
     --button-hover-border: 1px solid transparent;
     --toggle-button-color: #0f172a;
+    --custom-status-color: #c6b07e;
 }
 
 [data-theme="light"] {
@@ -18,6 +19,7 @@
     --button-hover-color: #FFFBF1;
     --button-hover-border: 1px solid #000;
     --toggle-button-color: whitesmoke;
+    --custom-status-color: #9c6346;
 }
 
 html {
@@ -50,25 +52,32 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* #back {
-    margin-left: 4em;
-    position: relative;
-    right: calc(100% - 3em);
-    top: 0vh;
-    background-color: var(--toggle-button-color);
-} */
-
 #themeToggle {
     text-align: right;
     margin-right: 4em;
     position: relative;
-    left: calc(100% - 3em);
+    left: calc(100% - 7em);
     top: 0vh;
+    background-color: var(--toggle-button-color);
+}
+
+#spacer {
+    float: left;
+    width: 6.5ch;
+    border: 2px solid transparent;
+}
+
+#back-button {
+    float: left;
     background-color: var(--toggle-button-color);
 }
 
 .desktop-label {
     display: none;
+}
+
+.tutorial-img {
+    width: 100%;
 }
 
 .member-card-container {
@@ -111,6 +120,10 @@ body {
 
 .member-banner {
     margin: auto;
+}
+
+.member-status {
+    color: var(--custom-status-color);
 }
 
 /*markdown stuff*/
@@ -170,9 +183,14 @@ footer {
     text-align: center;
 }
 
-header {
+h1, header {
     font-size: xx-large;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.2em;
+}
+
+h2 {
     text-align: center;
     margin-bottom: 0.2em;
 }
@@ -254,24 +272,17 @@ input:focus:valid {
         min-height: 85vh;
     }
 
-    /* .button-container {
-        display: flex;
-        flex-direction: row;
-    } */
-
-    /* #back {
-        float: left;
-        display: inline-flexbox;
-    } */
-
     #themeToggle {
         /* float: right; */
-        left: calc(100% - 9em);
+        left: calc(100% - 15em);
+    }
+
+    #themeColorIcon {
+        margin-right: 0.75em;
     }
 
     .desktop-label {
         display: contents;
-        margin-left: 0.75em;
     }
 
     .member-card-container {
@@ -295,7 +306,7 @@ input:focus:valid {
     footer {
         bottom: 0%;
         position: relative;
-        max-height: 10%vh;
+        max-height: 10%;
         margin: 10px 15%;
     }
 
