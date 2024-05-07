@@ -14,27 +14,32 @@
         <meta name="msapplication-TileColor" content="#2d89ef">
         <meta name="msapplication-config" content="/static/images/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
-        <title>pk.fronters.cc</title>
+        <title>fronters.cc</title>
         <script src="{{ url_for('static',filename='scripts/themeColor.js') }}"></script>
         <script src="{{ url_for('static',filename='scripts/loadingRing.js') }}"></script>
     </head>
     <body>
         <main>
             <div id="loader"></div>
-            <div class="button-container">
+            <a href="{{ url_for('home') }}"><button type="button" class="button" id="back-button">&#8592;<span class="desktop-label"> Back</span></button></a>
+            <div id="toggleDiv">
                 <button type="button" class="button" id="themeToggle"></button>
             </div>
             <div class="page">
                 <div class="page-content">
-                    <header>pk.fronters.cc</header>
-                    <p>Want to make your own fronters.cc page that inferaces with your PluralKit system? It's easy! To start, you'll need to ensure that your system's fronters are <strong>PUBLIC</strong>. Go to the bot channel of any Discord server and enter the following command: <pre>pk;system privacy front public</pre></p>
+                    <h1>Setting Up with PluralKit</h1>
+                    <p>Want to make your own fronters.cc page that inferaces with your PluralKit system? To start, you'll need to ensure that your system's fronters are <strong>PUBLIC</strong>. Go to the bot channel of any Discord server and enter the following command: <pre>pk;system privacy front public</pre></p>
+                    <img src="static/images/pk-setup_1.png" alt="example1" class="tutorial-img" />
                     <p>Next, you'll want to find your PluralKit system ID. Enter the following command: <pre>pk;system id</pre></p>
-                    <p>Now you're all set! You should be able to find your fronting page at <em>pk.fronters.cc/systemid</em>. For an example, go to <a href="pk.fronters.cc/exmpl">pk.fronters.cc/exmpl</a>!</p>
+                    <img src="static/images/pk-setup_2.png" alt="example2" class="tutorial-img" />
+                    <p>Now you're all set! You should be able to find your fronting page at <em>fronters.cc/pk/systemid</em>. For an example, go to <a href="pk/exmpl">fronters.cc/pk/exmpl</a>!</p>
                 </div>
             </div>
         </main>
         <footer>
-            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="pluralkit.me">PluralKit</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://app.apparyllis.com/">Simply Plural</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
+            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="https://pluralkit.me">PluralKit</a>. 
+                Inspired by Plural Front Codes by Arcana (<a href="https://web.archive.org/web/20221025114736/https://github.com/systemic-chaos/currently-fronting">archived</a>)
+                and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
         </footer>
     </body>
 </html>
