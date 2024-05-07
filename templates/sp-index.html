@@ -14,19 +14,25 @@
         <meta name="msapplication-TileColor" content="#2d89ef">
         <meta name="msapplication-config" content="/static/images/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
-        <title>sp.fronters.cc</title>
+        <title>fronters.cc</title>
         <script src="{{ url_for('static',filename='scripts/themeColor.js') }}"></script>
         <script src="{{ url_for('static',filename='scripts/loadingRing.js') }}"></script>
     </head>
-    <body onload="bodyLoaded">
+    <body>
         <main>
             <div id="loader"></div>
-            <button type="button" class="button" id="themeToggle" onclick="toggleDarkMode"></button>
+            <div id="spacer"></div>
+            <div id="toggleDiv">
+                <button type="button" class="button" id="themeToggle"></button>
+            </div>
             <div id="root"></div>
         </main>
         <footer>
-            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="pluralkit.me">PluralKit</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://app.apparyllis.com/">Simply Plural</a>. Inspired by Plural Front Codes by Arcana (now deleted) and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
+            <span id="footer-txt">Powered by <em>a lot</em> of <a href="https://codeberg.org/fronterscc/fronterscc">open source software</a> and designed to interface with <a href="https://app.apparyllis.com/">Simply Plural</a>. 
+                Inspired by Plural Front Codes by Arcana (<a href="https://web.archive.org/web/20221025114736/https://github.com/systemic-chaos/currently-fronting">archived</a>) 
+                and available under the <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU v3.0 license</a>.</span>
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
         <script type="module" src="https://md-block.verou.me/md-block.js"></script>
         <script src="{{ url_for('static',filename='scripts/discordMarkdown.js') }}"></script>
         <script src="{{ url_for('static',filename='scripts/spFronters.js') }}"></script>
