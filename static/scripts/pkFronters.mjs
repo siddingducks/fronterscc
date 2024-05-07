@@ -3,11 +3,10 @@ div.innerHTML = '';
 let customError = document.createElement('span');
 customError.classList.add('error-mssg');
 var frontersData;
-// window.location.protocol + '/api' + window.location.pathname <-- MUST CHANGE IN PRODUCTION
 
 //establish variables for authorization and page loading
 async function getSysID() { 
-    let result = await fetch(window.location.protocol + '/api' + window.location.pathname, {
+    let result = await fetch('/api' + window.location.pathname, {
         method: "GET", 
         headers: {
             'Accept': 'application/json'
@@ -19,7 +18,6 @@ async function getSysID() {
 
 (async function renderPage() {
     let sysID = await getSysID();
-    console.log(sysID);
 
     let config = {
         apiBase: 'https://api.pluralkit.me/v2',
@@ -74,8 +72,7 @@ async function getSysID() {
 
         try { 
             let memberAvatar = document.createElement('div');
-
-            if (member.avatar_url != null && !member.avatar_url.includes('imgur')) {
+            if (member.avatar_url != null) {
                 memberAvatar.classList.add('member-avatar');
                 memberAvatar.style.borderColor = memberElement.getAttribute('member-color');
                 memberAvatar.style.backgroundImage = 'url(' + memberElement.getAttribute('member-avatar') + ')';
@@ -104,7 +101,7 @@ async function getSysID() {
             memberPronouns.classList.add('md-span');
             if (member.pronouns!=null) {
                 member.pronouns = toDiscordMarkdown(member.pronouns);
-                memberPronouns.innerHTML = member.pronouns;
+                memberPronouns.innerHTML = DOMPurify.sanitize(member.pronouns);
                 memberElement.appendChild(memberPronouns);
             }
 
@@ -123,19 +120,21 @@ async function getSysID() {
             memberDesc.classList.add('member-desc');
             if (member.description!=null) {
                 member.description = toDiscordMarkdown(member.description);
-                memberDesc.innerHTML = member.description;
+                memberDesc.innerHTML = DOMPurify.sanitize(member.description);
                 memberElement.appendChild(memberDesc);
             }
 
             let memberBanner = document.createElement('div');
-
             if (member.banner != null) {
+                console.log('url(' + memberElement.getAttribute('member-banner') + ')');
                 memberBanner.classList.add('member-banner');
                 memberBanner.style.borderColor = 'transparent';
                 memberBanner.style.backgroundImage = 'url(' + memberElement.getAttribute('member-banner') + ')';
                 memberBanner.style.backgroundRepeat = 'no-repeat';
                 memberBanner.style.backgroundPosition = 'center center';
                 memberBanner.style.backgroundSize = 'cover';
+                memberBanner.style.display = 'inline-block';
+                memberBanner.innerHTML = '<img src="' + DOMPurify.sanitize(member.banner) + '" style="visibility:hidden;width:100%;" alt="banner" />'
                 memberElement.appendChild(memberBanner);
             }
 
