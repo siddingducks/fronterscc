@@ -12,13 +12,7 @@ Because this is sensitve data, Simply Plural users must set a custom URL for the
 fronters.cc will only show <strong>PUBLIC</strong> fronters. Private fronters (and fronters only shown to Trusted Friends) will not appear on the website. For more information on creating your own page, see the buttons at the bottom of the page.</p>
 
 # Wait, I want to do something like this, too!
-Hell yeah! That's awesome! I think everyone should be able to try their hand at making a website. Here's what you can do to start something like this yourself:
-- **Get ready to be confused and frustrated.** I'm so serious. I started this project thinking it would take me 2 weeks from development to production. It took 3 months just to release a very slow beta version full of bugs. Every time I worked on it, I told myself, "I hate coding! This is so miserable!" I gave up at least three times. It's (unfortunately) a really common experience while coding! When you're about ready to throw your computer out of a window, know that you're not alone. I promise, you're not "stupid" because your code isn't working. You're just learning, and that's ok!
-- **Find a coding community.** [Stack Overflow](https://stackoverflow.com/questions) and coding-related Discord servers are my saviors. Whenever I got especially stumped, I reached out to people who knew the struggle and used their support to keep going. fronters.cc wouldn't exist if it weren't for the help of kind internet strangers.
-- **Start by learning HTML and CSS!** If you want to learn how to make a cool website, you've got to start with HTML and CSS. Any educational resources are fine, but I'm a big fan of [W3Schools](https://www.w3schools.com/) and [GeeksforGeeks](https://www.geeksforgeeks.org/). Whenever I want to learn something new, those are the first places I go. Once you feel comfortable with HTML and CSS, you can move on to downloading Node.js (a JavaScript runtime) and Python and explore those languages, too.
-- **After a couple weeks of learning, use a framework!** Now this one, admittedly, I still don't know much about. But I've recently discovered frameworks, which legitimately exist for the sole purpose of making your life as a coder easier. (fronters.cc utilizes Flask, which is a microframework!) For a beginner, I would recommend starting with [Bootstrap](https://getbootstrap.com/). It helps you make your websites look pretty with half the effort. But it's important that you try to code things yourself first *before* you start using frameworks.
-
-Before you start a project like fronters.cc, you'll want to be:
+That's awesome! I think everyone should be able to try their hand at making a website. Before you start a project like fronters.cc, you'll want to be:
 - **Advanced** at HTML, CSS, and Javascript;
 - **Intermediate** at Python, SQL, and a database software of your choice; and
 - **Beginner** at Bash / command line scripting, Git, and using relative filepaths.
